@@ -10,3 +10,7 @@
 `aws s3api --endpoint-url https://<s3 location>:9021 get-bucket-versioning --bucket <bucket-name>`
 
 `aws s3api --endpoint-url https://<s3 location>:9021 put-bucket-versioning --bucket <bucket-name> --versioning-configuration Status=Enabled`
+
+AWS Console 
+  - select bucket 
+  - Properties, Enable Versioning
