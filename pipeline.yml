@@ -1,5 +1,8 @@
-resource_types:
-- name: s3
+# Defined resource type because of an issue connecting to Dell EMC Elastic Cloud Storage,
+# eventually can remove this once the docker image is updated by the concourse team.
+
+resource_types:           
+- name: s3                
   type: docker-image
   source:
     repository: concourse/s3-resource
