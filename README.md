@@ -1,4 +1,4 @@
-You will need the following:
+*You will need the following:*
 
 S3 or S3 comptabile storage that supports versioning 
 
