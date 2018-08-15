@@ -1,0 +1,53 @@
+resource_types:
+- name: s3
+  type: docker-image
+  source:
+    repository: concourse/s3-resource
+    tag: pr-105
+
+resources:
+- name: secrets
+  type: s3
+  source:
+    access_key_id: {{s3_access_key_id}}
+    secret_access_key: {{s3_secret_access_key}}
+    endpoint: {{s3_endpoint}}
+    bucket: {{s3_scp_secrets}}
+    versioned_file: test.yml
+    skip_ssl_verification: true
+
+- name: test
+  type: s3
+  source:
+    access_key_id: {{s3_access_key_id}}
+    secret_access_key: {{s3_secret_access_key}}
+    endpoint: {{s3_endpoint}}
+    bucket: {{s3_scp_secrets}}
+    versioned_file: test.yml
+    skip_ssl_verification: true
+
+jobs:
+- name: job-hello-world
+  public: true
+  plan:
+  - get: secrets
+  - task: hello-world
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: pcfnorm/rootfs
+      outputs:
+      - name: test
+      run:
+        path: sh
+        args:
+        - -c
+        - |
+          cd test
+          touch test.yml
+  - put: test
+    params:
+      file: test/test.yml
+      acl: public-read
