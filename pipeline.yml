@@ -30,7 +30,7 @@ resources:
     skip_ssl_verification: true
 
 jobs:
-- name: job-hello-world
+- name: get-put-file
   public: true
   plan:
   - get: secrets
